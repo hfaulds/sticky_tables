@@ -2,11 +2,23 @@
   <head>
     <script src='angular.min.js'></script>
     <script src='underscore.min.js'></script>
+    <script src='jquery-2.1.1.min.js'></script>
+    <script src='sticky_tables.js'></script>
     <script src='example_controller.js'></script>
     <link href='bootstrap.min.css' rel='stylesheet'></link>
+    <style>
+      table thead{
+        background-color: white;
+      }
+    </style>
   </head>
   <body data-ng-app data-ng-controller='ExampleController'>
     <div class='container'>
+      <div class='pull-left'>
+        <p>
+          lorem ipsum
+        </p>
+      </div>
       <table class='table'>
         <thead>
           <tr>
@@ -29,6 +41,12 @@
           </tr>
         </tbody>
       </table>
+
+      <div class='pull-right'>
+        <p>
+          lorem ipsum
+        </p>
+      </div>
     </div>
   </body>
 </html>
