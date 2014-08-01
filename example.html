@@ -1,0 +1,34 @@
+<html>
+  <head>
+    <script src='angular.min.js'></script>
+    <script src='underscore.min.js'></script>
+    <script src='example_controller.js'></script>
+    <link href='bootstrap.min.css' rel='stylesheet'></link>
+  </head>
+  <body data-ng-app data-ng-controller='ExampleController'>
+    <div class='container'>
+      <table class='table'>
+        <thead>
+          <tr>
+            <th data-ng-repeat='heading in headings'>
+              {{heading}}
+            </th>
+            <th data-ng-repeat='heading in headings'>
+              {{heading}}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-ng-repeat='row in headings'>
+            <td>
+              {{row}}
+            </td>
+            <td data-ng-repeat='column in columns'>
+              {{column}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
