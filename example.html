@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> Sticky Tables Example </title>
+    <script type='text/javascript' src='angular.min.js'></script>
+    <script type='text/javascript' src='underscore.min.js'></script>
+    <script type='text/javascript' src='jquery-2.1.1.min.js'></script>
+    <script type='text/javascript' src='sticky_tables.js'></script>
+    <script type='text/javascript' src='example_controller.js'></script>
+    <link  type='text/css' href='bootstrap.min.css' rel='stylesheet'>
+    <style type='text/css'>
+      table thead {
+        background-color: grey;
+      }
+      table tr td:first-child {
+        background-color: grey;
+      }
+    </style>
+  </head>
+  <body data-ng-app data-ng-controller='ExampleController'>
+    <div class='container'>
+      <div class='pull-left'>
+        <p>
+          lorem ipsum
+        </p>
+      </div>
+      <table class='table' data-ng-repeat='x in [0,1]'>
+        <thead>
+          <tr>
+            <th data-ng-repeat='heading in column_names'>
+              {{heading}}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-ng-repeat='row in row_names'>
+            <td>
+              {{row}}
+            </td>
+            <td data-ng-repeat='column in column_vals'>
+              {{column}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class='pull-right'>
+        <p>
+          lorem ipsum
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
