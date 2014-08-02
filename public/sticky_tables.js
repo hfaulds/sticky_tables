@@ -44,8 +44,6 @@
     this.column_headings = this.thead.clone();
     this.column_headings.hide();
     this.column_headings.css({
-      'top': 0,
-      'left': this.thead.position().left,
       'position': 'fixed',
       'z-index': 5
     });
@@ -61,8 +59,6 @@
 
     this.row_names.hide();
     this.row_names.css({
-      'top': this.thead.position().top + this.thead.height(),
-      'left': 0,
       'position': 'fixed',
       'z-index': 4
     });
@@ -79,9 +75,19 @@
     }
   };
 
+  StickyTable.prototype.scrollTop = function() {
+    var maxScroll = $(document).height() - $(window).height();
+    return Math.min(Math.max(0, $(window).scrollTop()), maxScroll);
+  };
+
+  StickyTable.prototype.scrollLeft = function() {
+    var maxScroll = $(document).width() - $(window).width();
+    return Math.min(Math.max(0, $(window).scrollLeft()), maxScroll);
+  };
+
   StickyTable.prototype.scrollColumnHeadings = function() {
-    var scrollTop = $(window).scrollTop();
-    var scrollLeft = $(window).scrollLeft();
+    var scrollTop = this.scrollTop();
+    var scrollLeft = this.scrollLeft();
     var top_of_table = this.table.offset().top;
     var bottom_of_table = top_of_table + this.table.height();
 
@@ -97,8 +103,8 @@
   };
 
   StickyTable.prototype.scrollRowNames = function() {
-    var scrollTop = $(window).scrollTop();
-    var scrollLeft = $(window).scrollLeft();
+    var scrollTop = this.scrollTop();
+    var scrollLeft = this.scrollLeft();
     var left_of_table = this.table.offset().left;
     var right_of_table = left_of_table + this.table.width();
 
