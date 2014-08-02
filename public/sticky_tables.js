@@ -80,12 +80,16 @@
   };
 
   StickyTable.prototype.scrollColumnHeadings = function() {
-    if($(window).scrollTop() > this.table.offset().top) {
-      var maxScroll = $(document).width() - $(window).width();
-      var scrollLeft = Math.min(Math.max(0, $(window).scrollLeft()), maxScroll);
+    var scrollTop = $(window).scrollTop();
+    var scrollLeft = $(window).scrollLeft();
+    var top_of_table = this.table.offset().top;
+    var bottom_of_table = top_of_table + this.table.height();
 
+    if(scrollTop > top_of_table && scrollTop < bottom_of_table) {
       this.column_headings.show();
+      var css = {};
       this.column_headings.css({
+        'top': Math.min(bottom_of_table - this.column_headings.height() - scrollTop, 0),
         'left': this.table.offset().left-scrollLeft,
       });
     } else {
