@@ -34,9 +34,9 @@
       column.width(column.width());
     });
 
-    this.tbody.children('tr').each(function(index) {
-      var row = $(this).children(self.settings.inner_class);
-      row.height(row.height());
+    this.tbody.find('tr').each(function() {
+      var row = $(this).find('.' + self.settings.inner_class);
+      row.height($(this).height());
     });
   };
 
@@ -87,10 +87,9 @@
 
     if(scrollTop > top_of_table && scrollTop < bottom_of_table) {
       this.column_headings.show();
-      var css = {};
       this.column_headings.css({
         'top': Math.min(bottom_of_table - this.column_headings.height() - scrollTop, 0),
-        'left': this.table.offset().left-scrollLeft,
+        'left': this.table.offset().left - scrollLeft,
       });
     } else {
       this.column_headings.hide();
@@ -98,13 +97,16 @@
   };
 
   StickyTable.prototype.scrollRowNames = function() {
-    if($(window).scrollLeft() > this.thead.position().left) {
-      var maxScroll = $(document).height() - $(window).height();
-      var scrollTop = Math.min(Math.max(0, $(window).scrollTop()), maxScroll);
+    var scrollTop = $(window).scrollTop();
+    var scrollLeft = $(window).scrollLeft();
+    var left_of_table = this.table.offset().left;
+    var right_of_table = left_of_table + this.table.width();
 
+    if(scrollLeft > left_of_table && scrollLeft < right_of_table) {
       this.row_names.show();
       this.row_names.css({
-        'top': this.thead.offset().top + this.thead.height() - scrollTop
+        'left': Math.min(right_of_table - this.row_names.width() - scrollLeft, 0),
+        'top': this.thead.offset().top + this.thead.height() - scrollTop,
       });
     } else {
       this.row_names.hide();
