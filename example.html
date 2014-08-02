@@ -22,20 +22,17 @@
       <table class='table'>
         <thead>
           <tr>
-            <th data-ng-repeat='heading in headings'>
-              {{heading}}
-            </th>
-            <th data-ng-repeat='heading in headings'>
+            <th data-ng-repeat='heading in column_names'>
               {{heading}}
             </th>
           </tr>
         </thead>
         <tbody>
-          <tr data-ng-repeat='row in headings'>
+          <tr data-ng-repeat='row in row_names'>
             <td>
               {{row}}
             </td>
-            <td data-ng-repeat='column in columns'>
+            <td data-ng-repeat='column in column_vals'>
               {{column}}
             </td>
           </tr>
