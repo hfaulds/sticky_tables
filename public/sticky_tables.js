@@ -8,6 +8,7 @@
     this.table = table;
     this.thead = table.find('thead');
     this.tbody = table.find('tbody');
+    this.first_row = this.tbody.find('tr td:first-child');
 
     this.settings = _.extend(default_settings, settings);
   }
@@ -24,29 +25,18 @@
     }
   };
 
-  StickyTable.prototype.add_wrapper = function(div, content) {
-    if(content) {
-      content = '<div class="' + this.settings.inner_class + '">';
-    }
-    div.wrapInner(content);
-    return div.children();
-  };
-
   StickyTable.prototype.setupInnerDivs = function() {
     var self = this;
-    self.thead.children().each(function() {
-      var thead_row = $(this);
-      thead_row.children().each(function(index) {
-        var heading = $(this);
-        var heading_wrapper = self.add_wrapper(heading);
+    this.table.find('td,th').wrapInner('<div class="' + this.settings.inner_class + '">');
 
-        var columns = self.tbody.children('tr').children('td:nth-child('+(index+1)+')');
-        var column_wrappers = self.add_wrapper(columns);
+    _(this.thead.children().eq(0).children().size()).times(function(index) {
+      var column = self.table.find('tr').find('.' + self.settings.inner_class+':eq('+index+')');
+      column.width(column.width());
+    });
 
-        var width = column_wrappers.width();
-        heading_wrapper.width(width);
-        column_wrappers.width(width);
-      });
+    this.tbody.children('tr').each(function(index) {
+      var row = $(this).children(self.settings.inner_class);
+      row.height(row.height());
     });
   };
 
@@ -104,7 +94,7 @@
   };
 
   StickyTable.prototype.scrollRowNames = function() {
-    if($(window).scrollLeft() > (this.thead.position().left)) {
+    if($(window).scrollLeft() > this.thead.position().left) {
       var maxScroll = $(document).height() - $(window).height();
       var scrollTop = Math.min(Math.max(0, $(window).scrollTop()), maxScroll);
 
